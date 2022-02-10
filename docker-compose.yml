@@ -5,7 +5,7 @@ services:
     build:
       context: ./services/php
       dockerfile: Dockerfile
-    container_name: laundryshop_api_php
+    container_name: api_php
     restart: unless-stopped
     tty: true
     volumes:
@@ -19,7 +19,7 @@ services:
     build:
       context: ./services/nginx
       dockerfile: Dockerfile
-    container_name: laundryshop_api_nginx
+    container_name: api_nginx
     restart: unless-stopped
     tty: true
     ports:
