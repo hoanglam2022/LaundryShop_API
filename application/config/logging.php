@@ -114,6 +114,11 @@ return [
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
+
+        'response' => [
+            'driver' => 'daily',
+            'path'   => storage_path('logs/response/log.log'),
+        ],
     ],
 
 ];
