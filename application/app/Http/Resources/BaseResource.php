@@ -10,7 +10,7 @@ class BaseResource extends JsonResource
     protected     $code;
     protected     $message;
     protected     $errors;
-    public static $wrap = 'data';
+    public static $wrap = 'payload';
 
     public function __construct($code, $resource = null, $errors = [])
     {
@@ -40,6 +40,19 @@ class BaseResource extends JsonResource
             'code'    => $this->code,
             'message' => $this->message,
             'errors'  => $this->errors,
+        ];
+    }
+
+    /**
+     * Transform the resource into an array.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
+     */
+    public function toArray($request)
+    {
+        return [
+            'payload' => $this->resource
         ];
     }
 }

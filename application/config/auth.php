@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'api',
+        'guard'     => 'admin',
         'passwords' => 'mst_user',
     ],
 
@@ -36,9 +36,14 @@ return [
     */
 
     'guards' => [
-        'api' => [
-            'driver' => 'session',
+        'admin' => [
+            'driver'   => 'session',
             'provider' => 'mst_user',
+        ],
+
+        'customer' => [
+            'driver'   => 'session',
+            'provider' => 'mst_customer',
         ],
     ],
 
@@ -62,13 +67,13 @@ return [
     'providers' => [
         'mst_user' => [
             'driver' => 'eloquent',
-            'model' => App\Models\laundry_shop\MstUser::class,
+            'model'  => App\Models\laundry_shop\MstUser::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'mst_customer' => [
+            'driver' => 'eloquent',
+            'model'  => App\Models\laundry_shop\MstCustomer::class,
+        ],
     ],
 
     /*
@@ -89,8 +94,8 @@ return [
     'passwords' => [
         'mst_user' => [
             'provider' => 'mst_user',
-            'table' => 'password_resets',
-            'expire' => 60,
+            'table'    => 'password_resets',
+            'expire'   => 60,
             'throttle' => 60,
         ],
     ],

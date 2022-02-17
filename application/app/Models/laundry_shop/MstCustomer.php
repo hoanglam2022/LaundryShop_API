@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class MstUser extends Authenticatable
+class MstCustomer extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -18,7 +18,7 @@ class MstUser extends Authenticatable
      *
      * @var string
      */
-    protected $table = 'mst_user';
+    protected $table = 'mst_customer';
 
     /**
      * The attributes that are mass assignable.

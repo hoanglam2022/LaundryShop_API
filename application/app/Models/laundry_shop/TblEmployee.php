@@ -2,23 +2,17 @@
 
 namespace App\Models\laundry_shop;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
-class MstUser extends Authenticatable
+class TblEmployee extends BaseModel
 {
-    use HasApiTokens, HasFactory, Notifiable;
-
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'mst_user';
+    protected $table = 'tbl_employee';
 
     /**
      * The attributes that are mass assignable.

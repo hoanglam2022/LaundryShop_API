@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\BaseController;
 use App\Http\Requests\MstUserLoginRequest;
 use App\Http\Requests\MstUserRegisterRequest;
 use App\Http\Resources\BaseResource;
@@ -67,7 +68,7 @@ class AuthController extends BaseController
         $error_field = '';
 
         try {
-            if (!Auth::attempt([
+            if (!Auth::guard(GUARD_ADMIN)->attempt([
                 'username' => $username,
                 'password' => $password
             ])) {
@@ -76,8 +77,8 @@ class AuthController extends BaseController
                 throw new Exception('Mật khẩu không đúng.');
             }
 
-            $mst_user = Auth::user();
-            $token    = $mst_user->createToken('mst_user')->accessToken->token;
+            $mst_user = Auth::guard(GUARD_ADMIN)->user();
+            $token    = $mst_user->createToken(get_app_name(), [GUARD_ADMIN])->plainTextToken;
             $resource = (new MstUserResource(CODE_SUCCESS, $mst_user))->additional([
                 'meta' => [
                     'token' => $token,
@@ -100,8 +101,8 @@ class AuthController extends BaseController
      */
     public function logout()
     {
-        if (auth()->check()) {
-            auth()->logout();
+        if (auth(GUARD_ADMIN)->check()) {
+            auth(GUARD_ADMIN)->logout();
         }
     }
 }

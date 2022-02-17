@@ -1,6 +1,11 @@
 <?php
 
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Admin\AuthController as AdminAuthController;
+use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\EmployeeController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Customer\AuthController as CustomerAuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,42 +24,61 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['prefix' => 'v1'], function ()  {
-    Route::group(['prefix' => 'auth'], function ()  {
-        Route::post('tokens/create', [AuthController::class, 'getToken']);
-        Route::post('register', [AuthController::class, 'register']);
+Route::group([
+    'prefix' => 'v1',
+], function () {
+    Route::group(['prefix' => 'auth'], function () {
+        Route::post('admin/tokens/create', [AdminAuthController::class, 'getToken']);
+        Route::post('admin/register', [AdminAuthController::class, 'register']);
+
+        Route::post('customer/tokens/create', [CustomerAuthController::class, 'getToken']);
+        Route::post('customer/register', [CustomerAuthController::class, 'register']);
     });
 
-    Route::group(['prefix' => 'users'], function ()  {
-        Route::get('', 'UserController@get');
-        Route::get('username/{username}', 'UserController@detail');
-        Route::post('insert', 'UserController@insert');
-    });
+    Route::group([
+        'middleware' => ['auth:sanctum'],
+    ], function () {
+        Route::group([
+            'middleware' => 'admin',
+            'prefix'     => 'admin',
+        ], function () {
+            // Auth
+            Route::post('auth/admin/tokens/refresh', [AdminAuthController::class, 'getToken']);
 
-    Route::group(['middleware' => 'auth'], function ()  {
-
-        Route::group(['prefix' => 'auth'], function ()  {
-            Route::post('refresh-token', 'AuthController@refreshToken');
-        });
-
-        Route::group(['prefix' => 'users', 'middleware' => 'authorization'], function ()  {
-
-            Route::post('{username}/orders', 'UserController@ordersByUsername');
-            Route::post('{username}/transactions', 'UserController@transactionsByUsername');
-        });
-
-        Route::group(['middleware' => 'authorization'], function ()  {
-
-            Route::group(['prefix' => 'transactions'], function ()  {
-                Route::post('pay-in', 'TransactionController@payIn');
+            // Customers
+            Route::group(['prefix' => 'customers'], function () {
+                Route::get('', [CustomerController::class, 'index']);
+                Route::get('{id}', [CustomerController::class, 'find']);
+                Route::post('', [CustomerController::class, 'create']);
+                Route::post('{id}', [CustomerController::class, 'update']);
+                Route::delete('{id}', [CustomerController::class, 'delete']);
             });
 
-            Route::group(['prefix' => 'orders'], function ()  {
-                Route::post('insert', 'OrderController@insert');
+            // Customers
+            Route::group(['prefix' => 'employees'], function () {
+                Route::get('', [EmployeeController::class, 'index']);
+                Route::get('{id}', [EmployeeController::class, 'find']);
+                Route::post('', [EmployeeController::class, 'create']);
+                Route::post('{id}', [EmployeeController::class, 'update']);
+                Route::delete('{id}', [EmployeeController::class, 'delete']);
             });
 
-            Route::group(['prefix' => 'orders'], function ()  {
-                Route::post('insert-ssc', 'OrderController@insertSSC');
+            // Customers
+            Route::group(['prefix' => 'services'], function () {
+                Route::get('', [ServiceController::class, 'index']);
+                Route::get('{id}', [ServiceController::class, 'find']);
+                Route::post('', [ServiceController::class, 'create']);
+                Route::post('{id}', [ServiceController::class, 'update']);
+                Route::delete('{id}', [ServiceController::class, 'delete']);
+            });
+
+            // Customers
+            Route::group(['prefix' => 'products'], function () {
+                Route::get('', [ProductController::class, 'index']);
+                Route::get('{id}', [ProductController::class, 'find']);
+                Route::post('', [ProductController::class, 'create']);
+                Route::post('{id}', [ProductController::class, 'update']);
+                Route::delete('{id}', [ProductController::class, 'delete']);
             });
         });
     });
