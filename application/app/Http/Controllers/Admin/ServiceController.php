@@ -29,7 +29,7 @@ class ServiceController extends BaseController
     public function index(): JsonResponse
     {
         return (new BaseResource(CODE_SUCCESS,
-            $this->repository->paginate()
+            $this->repository->paginate(request()->all())
         ))->response();
     }
 

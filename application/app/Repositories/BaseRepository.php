@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\laundry_shop\MstProduct;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 
@@ -49,7 +50,19 @@ abstract class BaseRepository implements BaseRepositoryInterface
         $default_prefix = config('paginate.default.prefix');
         $limit          = (int)Arr::get($queries, 'limit', $default_limit);
         $page           = (int)Arr::get($queries, 'page', $default_page);
-        return $this->model->paginate($limit, ['*'], $default_prefix, $page);
+        $order          = Arr::get($queries, 'order');
+        $sort           = Arr::get($queries, 'sort');
+
+        $builder = $this->model;
+        if (!empty($sort) && !empty($order)) {
+            $order = in_array($order, config('paginate.allow_order')) ? $order
+                : config('paginate.default.order');
+
+            $builder = $builder->orderBy($sort, $order);
+        }
+
+
+        return $builder->paginate($limit, ['*'], $default_prefix, $page);
     }
 
     /**

@@ -13,7 +13,7 @@ return [
         'per_page' => 25,
         'page'     => 1,
         'prefix'   => 'page',
-        'sort'     => 'ASC',
+        'order'    => 'ASC',
     ],
 
     'query_fields' => [
@@ -21,5 +21,7 @@ return [
         'page'     => 'page',
         'order_by' => 'order_by',
         'sort'     => 'sort',
-    ]
+    ],
+
+    'allow_order' => ['asc', 'ASC', 'desc', 'DESC']
 ];
