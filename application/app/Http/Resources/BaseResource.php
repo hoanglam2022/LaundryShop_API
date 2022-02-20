@@ -10,7 +10,7 @@ class BaseResource extends JsonResource
     protected     $code;
     protected     $message;
     protected     $errors;
-    public static $wrap = 'payload';
+    public static $wrap = 'data';
 
     public function __construct($code, $resource = null, $errors = [])
     {
@@ -52,7 +52,7 @@ class BaseResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'payload' => $this->resource
+            'data' => $this->resource
         ];
     }
 }

@@ -37,7 +37,7 @@ abstract class ApiRequest extends FormRequest
     {
         $errors = (new ValidationException($validator))->errors();
         throw new HttpResponseException(
-            (new BaseResource(JsonResponse::HTTP_UNPROCESSABLE_ENTITY, [], $errors))->response()
+            (new BaseResource(JsonResponse::HTTP_UNPROCESSABLE_ENTITY, [], $errors))->response()->setStatusCode(200)
         );
     }
 }
