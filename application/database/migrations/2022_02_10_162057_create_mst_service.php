@@ -21,9 +21,6 @@ return new class extends Migration
             $table->string('created_user')->default('admin');
             $table->string('updated_user')->default('admin');
             $table->timestamps();
-
-            // Unique
-            $table->unique('name', 'uni_name');
         });
     }
 

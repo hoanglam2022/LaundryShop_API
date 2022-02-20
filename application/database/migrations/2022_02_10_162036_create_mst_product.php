@@ -23,11 +23,9 @@ return new class extends Migration
             $table->string('updated_user')->default('admin');
             $table->timestamps();
 
-            // Unique
-            $table->unique('name', 'uni_name');
-
             // Index
             $table->index('price', 'idx_price');
+            $table->index('name', 'idx_name');
         });
     }
 

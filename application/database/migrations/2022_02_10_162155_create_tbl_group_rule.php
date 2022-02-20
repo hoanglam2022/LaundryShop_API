@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('tbl_group_rule', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('group_id');
-            $table->string('rule_id');
+            $table->bigInteger('rule_id');
             $table->string('created_user')->default('admin');
             $table->string('updated_user')->default('admin');
             $table->timestamps();

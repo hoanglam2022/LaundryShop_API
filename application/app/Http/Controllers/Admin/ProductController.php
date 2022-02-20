@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\BaseController;
+use App\Http\Requests\Product\ProductCreateRequest;
+use App\Http\Requests\Product\ProductUpdateRequest;
 use App\Http\Resources\BaseResource;
 use App\Repositories\ProductRepository;
 use Illuminate\Http\JsonResponse;
@@ -47,24 +49,26 @@ class ProductController extends BaseController
 
     /**
      * Create
+     * @param ProductCreateRequest $request
      * @return JsonResponse
      */
-    public function create(): JsonResponse
+    public function create(ProductCreateRequest $request): JsonResponse
     {
         return (new BaseResource(CODE_SUCCESS,
-            $this->repository->create(request()->all())
+            $this->repository->create($request->all())
         ))->response();
     }
 
     /**
      * Update
      * @param $id
+     * @param ProductUpdateRequest $request
      * @return JsonResponse
      */
-    public function update($id): JsonResponse
+    public function update($id, ProductUpdateRequest $request): JsonResponse
     {
         return (new BaseResource(CODE_SUCCESS,
-            $this->repository->update($id, request()->all())
+            $this->repository->update($id, $request->all())
         ))->response();
     }
 

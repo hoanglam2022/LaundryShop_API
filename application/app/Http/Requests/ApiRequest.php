@@ -9,7 +9,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use \Illuminate\Validation\ValidationException;
 
-class ApiRequest extends FormRequest
+abstract class ApiRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,11 +26,7 @@ class ApiRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
-    {
-        return [
-        ];
-    }
+    abstract function rules();
 
     /**
      * Handle a failed validation attempt.

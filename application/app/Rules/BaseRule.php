@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Builder;
 class BaseRule implements Rule
 {
     /**
+     * @var string
+     */
+    protected string $message;
+
+    /**
      * @var Builder|null
      */
     protected $model;
@@ -15,6 +20,7 @@ class BaseRule implements Rule
     public function __construct($model = null)
     {
         $this->model = $model;
+        $this->message = '';
     }
 
     /**
@@ -36,6 +42,20 @@ class BaseRule implements Rule
      */
     public function message()
     {
-        return '';
+        return $this->message;
+    }
+
+    /**
+     * Is unique
+     *
+     * @param $model
+     * @param $params
+     * @return bool
+     */
+    protected function isUnique($model, $params): bool
+    {
+        return !$model->where([
+            $params
+        ])->exists();
     }
 }
