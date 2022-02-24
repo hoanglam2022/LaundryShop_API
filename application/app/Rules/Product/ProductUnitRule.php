@@ -33,6 +33,6 @@ class ProductUnitRule extends BaseRule
      */
     public function message()
     {
-        return 'Giá sản phẩm không hợp lệ.';
+        return 'Đơn vị phẩm không hợp lệ.';
     }
 }

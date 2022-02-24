@@ -31,7 +31,7 @@ class ProductCreateRequest extends ApiRequest
             'name'        => ['required', new ProductNameRule()],
             'price'       => ['required', new ProductPriceRule()],
             'unit'        => ['required', new ProductUnitRule()],
-            'description' => ['required', new ProductDescriptionRule()],
+            'description' => new ProductDescriptionRule(),
         ];
     }
 
@@ -43,10 +43,9 @@ class ProductCreateRequest extends ApiRequest
     public function messages()
     {
         return [
-            'name.required'        => __('validation.required', ['attribute' => __('product.name')]),
-            'price.required'       => __('validation.required', ['attribute' => __('product.price')]),
-            'unit.required'        => __('validation.required', ['attribute' => __('product.unit')]),
-            'description.required' => __('validation.required', ['attribute' => __('product.description')]),
+            'name.required'  => __('validation.required', ['attribute' => __('product.name')]),
+            'price.required' => __('validation.required', ['attribute' => __('product.price')]),
+            'unit.required'  => __('validation.required', ['attribute' => __('product.unit')]),
         ];
     }
 }

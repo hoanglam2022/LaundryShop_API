@@ -15,11 +15,7 @@ class ProductDescriptionRule extends BaseRule
      */
     public function passes($attribute, $value)
     {
-        if (!is_string($value)) {
-            return false;
-        }
-
-        return true;
+        return empty($value) || is_string($value);
     }
 
     /**
@@ -29,6 +25,6 @@ class ProductDescriptionRule extends BaseRule
      */
     public function message()
     {
-        return 'Giá sản phẩm không hợp lệ.';
+        return 'Mô tả phẩm không hợp lệ.';
     }
 }
