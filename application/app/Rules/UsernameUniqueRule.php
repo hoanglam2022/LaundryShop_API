@@ -23,6 +23,6 @@ class UsernameUniqueRule extends BaseRule
      */
     public function message()
     {
-        return 'Tài khoản đã tồn tại.';
+        return 'Tên tài khoản đã tồn tại.';
     }
 }

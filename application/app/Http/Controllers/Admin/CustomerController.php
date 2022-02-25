@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\BaseController;
+use App\Http\Requests\Customer\CustomerCreateRequest;
+use App\Http\Requests\Customer\CustomerUpdateRequest;
 use App\Http\Resources\BaseResource;
 use App\Repositories\CustomerRepository;
 use Illuminate\Http\JsonResponse;
@@ -47,24 +49,26 @@ class CustomerController extends BaseController
 
     /**
      * Create
+     * @param CustomerCreateRequest $request
      * @return JsonResponse
      */
-    public function create(): JsonResponse
+    public function create(CustomerCreateRequest $request): JsonResponse
     {
         return (new BaseResource(CODE_SUCCESS,
-            $this->repository->create(request()->all())
+            $this->repository->create($request->all())
         ))->response();
     }
 
     /**
      * Update
      * @param $id
+     * @param CustomerUpdateRequest $request
      * @return JsonResponse
      */
-    public function update($id): JsonResponse
+    public function update($id, CustomerUpdateRequest $request): JsonResponse
     {
         return (new BaseResource(CODE_SUCCESS,
-            $this->repository->update($id, request()->all())
+            $this->repository->update($id, $request->all())
         ))->response();
     }
 
