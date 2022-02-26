@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('email');
             $table->string('phone_number');
+            $table->text('address');
             $table->string('created_user')->default('admin');
             $table->string('updated_user')->default('admin');
             $table->timestamps();

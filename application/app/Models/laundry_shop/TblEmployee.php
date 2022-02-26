@@ -26,6 +26,7 @@ class TblEmployee extends BaseModel
         'last_name',
         'email',
         'phone_number',
+        'address',
         'created_on',
         'created_user',
         'updated_on',

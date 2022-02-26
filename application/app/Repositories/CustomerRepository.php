@@ -31,6 +31,7 @@ class CustomerRepository extends BaseRepository implements BaseRepositoryInterfa
             'last_name'    => Arr::get($attributes, 'last_name'),
             'email'        => Arr::get($attributes, 'email'),
             'phone_number' => Arr::get($attributes, 'phone_number'),
+            'address'      => Arr::get($attributes, 'address'),
         ]);
     }
 
@@ -44,13 +45,19 @@ class CustomerRepository extends BaseRepository implements BaseRepositoryInterfa
     {
         $result = $this->find($id);
         if ($result) {
-            $result->update([
-                'password'     => bcrypt(Arr::get($attributes, 'password')),
+            $password   = Arr::get($attributes, 'password');
+            $dataUpdate = [
+                'username'     => Arr::get($attributes, 'username'),
                 'first_name'   => Arr::get($attributes, 'first_name'),
                 'last_name'    => Arr::get($attributes, 'last_name'),
                 'email'        => Arr::get($attributes, 'email'),
                 'phone_number' => Arr::get($attributes, 'phone_number'),
-            ]);
+                'address'      => Arr::get($attributes, 'address'),
+            ];
+            if (!empty($password)) {
+                $dataUpdate['password'] = bcrypt($password);
+            }
+            $result->update($dataUpdate);
             return $result;
         }
 

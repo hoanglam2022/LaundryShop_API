@@ -2,7 +2,7 @@
 
 namespace App\Rules;
 
-class PhoneNumberUniqueRule extends BaseRule
+class PhoneNumberUniqueRule extends BaseUniqueRule
 {
     /**
      * Determine if the validation rule passes.
@@ -13,7 +13,7 @@ class PhoneNumberUniqueRule extends BaseRule
      */
     public function passes($attribute, $value)
     {
-        return !$this->model->where('phone_number', $value)->exists();
+        return $this->getIsOldValue($value) || !$this->model->where('phone_number', $value)->exists();
     }
 
     /**

@@ -32,6 +32,7 @@ class MstUser extends Authenticatable
         'last_name',
         'email',
         'phone_number',
+        'address',
         'created_on',
         'created_user',
         'updated_on',

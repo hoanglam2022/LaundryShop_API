@@ -4,13 +4,9 @@ namespace App\Http\Requests\Customer;
 
 use App\Http\Requests\ApiRequest;
 use App\Models\laundry_shop\MstCustomer;
+use App\Repositories\CustomerRepository;
 use App\Rules\EmailUniqueRule;
 use App\Rules\PhoneNumberUniqueRule;
-use App\Rules\Product\ProductDescriptionRule;
-use App\Rules\Product\ProductNameRule;
-use App\Rules\Product\ProductPriceRule;
-use App\Rules\Product\ProductUnitRule;
-use App\Rules\UsernameUniqueRule;
 
 class CustomerUpdateRequest extends ApiRequest
 {
@@ -36,12 +32,19 @@ class CustomerUpdateRequest extends ApiRequest
      */
     public function rules()
     {
+        $repo               = new CustomerRepository();
+        $id                 = $this->route('id');
+        $customer           = is_numeric($id) ? $repo->find($id) : null;
+        $withoutEmail       = !empty($customer) ? $customer->email : null;
+        $withoutPhoneNumber = !empty($customer) ? $customer->phone_number : null;
         return [
-            'password'         => ['required', 'max:255', 'string'],
-            'password_confirm' => ['required', 'max:255', 'string', 'same:password'],
+            'password'         => ['max:255', 'string'],
+            'password_confirm' => ['required_with:password', 'max:255', 'string', 'same:password'],
             'first_name'       => ['required', 'max:255', 'string'],
             'last_name'        => ['required', 'max:255', 'string'],
-            'phone_number'     => ['required', 'max:50'],
+            'email'            => ['required', 'max:255', 'email', new EmailUniqueRule(new MstCustomer(), $withoutEmail)],
+            'phone_number'     => ['required', 'max:50', new PhoneNumberUniqueRule(new MstCustomer(), $withoutPhoneNumber)],
+            'address'          => ['string'],
         ];
     }
 
@@ -53,27 +56,32 @@ class CustomerUpdateRequest extends ApiRequest
     public function messages()
     {
         return [
-            'username.required'         => __('validation.required', ['attribute' => __('common.username')]),
-            'username.max'              => __('validation.max.string', ['attribute' => __('common.username')]),
-            'username.string'           => __('validation.string', ['attribute' => __('common.username')]),
-            'password.required'         => __('validation.required', ['attribute' => __('common.password')]),
-            'password.max'              => __('validation.max.string', ['attribute' => __('common.password')]),
-            'password.string'           => __('validation.string', ['attribute' => __('common.password')]),
-            'password_confirm.required' => __('validation.required', ['attribute' => __('common.password_confirm')]),
-            'password_confirm.max'      => __('validation.max.string', ['attribute' => __('common.password_confirm')]),
-            'password_confirm.string'   => __('validation.string', ['attribute' => __('common.password_confirm')]),
-            'password_confirm.same'     => __('validation.same', [
+            'username.required'              => __('validation.required', ['attribute' => __('common.username')]),
+            'username.max'                   => __('validation.max.string', ['attribute' => __('common.username')]),
+            'username.string'                => __('validation.string', ['attribute' => __('common.username')]),
+            'password.required'              => __('validation.required', ['attribute' => __('common.password')]),
+            'password.max'                   => __('validation.max.string', ['attribute' => __('common.password')]),
+            'password.string'                => __('validation.string', ['attribute' => __('common.password')]),
+            'password_confirm.required'      => __('validation.required', ['attribute' => __('common.password_confirm')]),
+            'password_confirm.max'           => __('validation.max.string', ['attribute' => __('common.password_confirm')]),
+            'password_confirm.string'        => __('validation.string', ['attribute' => __('common.password_confirm')]),
+            'password_confirm.same'          => __('validation.same', [
                 'attribute' => __('common.password'),
                 'other'     => __('common.password_confirm')
             ]),
-            'first_name.required'       => __('validation.required', ['attribute' => __('common.first_name')]),
-            'first_name.max'            => __('validation.max.string', ['attribute' => __('common.first_name')]),
-            'first_name.string'         => __('validation.string', ['attribute' => __('common.first_name')]),
-            'last_name.required'        => __('validation.required', ['attribute' => __('common.last_name')]),
-            'last_name.max'             => __('validation.max.string', ['attribute' => __('common.last_name')]),
-            'last_name.string'          => __('validation.string', ['attribute' => __('common.last_name')]),
-            'phone_number.required'     => __('validation.required', ['attribute' => __('common.phone_number')]),
-            'phone_number.max'          => __('validation.max.string', ['attribute' => __('common.phone_number')]),
+            'password_confirm.required_with' => __('validation.required_with', [
+                'attribute' => __('common.password_confirm'),
+                'values'    => __('common.password_new')
+            ]),
+            'first_name.required'            => __('validation.required', ['attribute' => __('common.first_name')]),
+            'first_name.max'                 => __('validation.max.string', ['attribute' => __('common.first_name')]),
+            'first_name.string'              => __('validation.string', ['attribute' => __('common.first_name')]),
+            'last_name.required'             => __('validation.required', ['attribute' => __('common.last_name')]),
+            'last_name.max'                  => __('validation.max.string', ['attribute' => __('common.last_name')]),
+            'last_name.string'               => __('validation.string', ['attribute' => __('common.last_name')]),
+            'phone_number.required'          => __('validation.required', ['attribute' => __('common.phone_number')]),
+            'phone_number.max'               => __('validation.max.string', ['attribute' => __('common.phone_number')]),
+            'address.string'                 => __('validation.string', ['attribute' => __('common.address')]),
         ];
     }
 }

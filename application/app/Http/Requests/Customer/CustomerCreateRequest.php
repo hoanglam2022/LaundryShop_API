@@ -40,6 +40,7 @@ class CustomerCreateRequest extends ApiRequest
             'last_name'        => ['required', 'max:255', 'string'],
             'email'            => ['required', 'max:255', 'email', new EmailUniqueRule(new MstCustomer())],
             'phone_number'     => ['required', 'max:50', new PhoneNumberUniqueRule(new MstCustomer())],
+            'address'          => ['string'],
         ];
     }
 
@@ -72,6 +73,7 @@ class CustomerCreateRequest extends ApiRequest
             'last_name.string'          => __('validation.string', ['attribute' => __('common.last_name')]),
             'phone_number.required'     => __('validation.required', ['attribute' => __('common.phone_number')]),
             'phone_number.max'          => __('validation.max.string', ['attribute' => __('common.phone_number')]),
+            'address.string'            => __('validation.string', ['attribute' => __('common.address')]),
         ];
     }
 }

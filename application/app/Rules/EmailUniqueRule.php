@@ -2,7 +2,7 @@
 
 namespace App\Rules;
 
-class EmailUniqueRule extends BaseRule
+class EmailUniqueRule extends BaseUniqueRule
 {
     /**
      * Determine if the validation rule passes.
@@ -13,7 +13,7 @@ class EmailUniqueRule extends BaseRule
      */
     public function passes($attribute, $value)
     {
-        return !$this->model->where('email', $value)->exists();
+        return $this->getIsOldValue($value) || !$this->model->where('email', $value)->exists();
     }
 
     /**

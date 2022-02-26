@@ -2,7 +2,7 @@
 
 namespace App\Rules;
 
-class UsernameUniqueRule extends BaseRule
+class UsernameUniqueRule extends BaseUniqueRule
 {
     /**
      * Determine if the validation rule passes.
