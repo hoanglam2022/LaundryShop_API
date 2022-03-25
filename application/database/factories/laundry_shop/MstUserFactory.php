@@ -20,12 +20,13 @@ class MstUserFactory extends Factory
     public function definition()
     {
         return [
-            'username' => $this->faker->userName(),
-            'password' => '$2y$10$5aoPQTtdO/SvF/7WUCyYFe37G6kwR0HL0RgXp4LujuMw0UCjBpzvy', // 1
-            'first_name' => $this->faker->firstNameMale(),
-            'last_name' => $this->faker->lastName(),
-            'email' => $this->faker->unique()->safeEmail(),
+            'username'     => $this->faker->userName(),
+            'password'     => '$2y$10$5aoPQTtdO/SvF/7WUCyYFe37G6kwR0HL0RgXp4LujuMw0UCjBpzvy', // 1
+            'first_name'   => $this->faker->firstNameMale(),
+            'last_name'    => $this->faker->lastName(),
+            'email'        => $this->faker->unique()->safeEmail(),
             'phone_number' => $this->faker->unique()->phoneNumber(),
+            'address'      => $this->faker->unique()->address(),
             'created_user' => 'laundry-shop-api',
             'updated_user' => 'laundry-shop-api',
         ];

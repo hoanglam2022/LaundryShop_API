@@ -36,6 +36,6 @@ class BaseUniqueRule extends BaseRule
      */
     public function message()
     {
-        return 'Email đã tồn tại.';
+        return '';
     }
 }

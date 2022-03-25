@@ -3,25 +3,25 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Service\ServiceCreateRequest;
-use App\Http\Requests\Service\ServiceUpdateRequest;
+use App\Http\Requests\CustomerService\CustomerServiceCreateRequest;
+use App\Http\Requests\CustomerService\CustomerServiceUpdateRequest;
 use App\Http\Resources\BaseResource;
-use App\Repositories\ServiceRepository;
+use App\Repositories\CustomerServiceRepository;
 use Illuminate\Http\JsonResponse;
 
-class ServiceController extends BaseController
+class CustomerServiceController extends BaseController
 {
     /**
      * Define
      */
-    private ServiceRepository $repository;
+    private CustomerServiceRepository $repository;
 
     /**
      * Init
      */
     public function __construct()
     {
-        $this->repository = new ServiceRepository();
+        $this->repository = new CustomerServiceRepository();
     }
 
     /**
@@ -49,10 +49,10 @@ class ServiceController extends BaseController
 
     /**
      * Create
-     * @param ServiceCreateRequest $request
+     * @param CustomerServiceCreateRequest $request
      * @return JsonResponse
      */
-    public function create(ServiceCreateRequest $request): JsonResponse
+    public function create(CustomerServiceCreateRequest $request): JsonResponse
     {
         return (new BaseResource(CODE_SUCCESS,
             $this->repository->create($request->all())
@@ -62,10 +62,10 @@ class ServiceController extends BaseController
     /**
      * Update
      * @param $id
-     * @param ServiceUpdateRequest $request
+     * @param CustomerServiceUpdateRequest $request
      * @return JsonResponse
      */
-    public function update($id, ServiceUpdateRequest $request): JsonResponse
+    public function update($id, CustomerServiceUpdateRequest $request): JsonResponse
     {
         return (new BaseResource(CODE_SUCCESS,
             $this->repository->update($id, $request->all())

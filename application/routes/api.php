@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\CustomerServiceController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ServiceController;
@@ -45,7 +46,7 @@ Route::group([
             // Auth
             Route::post('auth/admin/tokens/refresh', [AdminAuthController::class, 'getToken']);
 
-            // Customers
+            // Customer
             Route::group(['prefix' => 'customers'], function () {
                 Route::get('', [CustomerController::class, 'index']);
                 Route::get('{id}', [CustomerController::class, 'find']);
@@ -54,7 +55,7 @@ Route::group([
                 Route::delete('{id}', [CustomerController::class, 'delete']);
             });
 
-            // Customers
+            // Employee
             Route::group(['prefix' => 'employees'], function () {
                 Route::get('', [EmployeeController::class, 'index']);
                 Route::get('{id}', [EmployeeController::class, 'find']);
@@ -63,7 +64,7 @@ Route::group([
                 Route::delete('{id}', [EmployeeController::class, 'delete']);
             });
 
-            // Customers
+            // Service
             Route::group(['prefix' => 'services'], function () {
                 Route::get('', [ServiceController::class, 'index']);
                 Route::get('{id}', [ServiceController::class, 'find']);
@@ -72,13 +73,22 @@ Route::group([
                 Route::delete('{id}', [ServiceController::class, 'delete']);
             });
 
-            // Customers
+            // Product
             Route::group(['prefix' => 'products'], function () {
                 Route::get('', [ProductController::class, 'index']);
                 Route::get('{id}', [ProductController::class, 'find']);
                 Route::post('', [ProductController::class, 'create']);
                 Route::post('{id}', [ProductController::class, 'update']);
                 Route::delete('{id}', [ProductController::class, 'delete']);
+            });
+
+            // Customer service
+            Route::group(['prefix' => 'customer-service'], function () {
+                Route::get('', [CustomerServiceController::class, 'index']);
+                Route::get('{id}', [CustomerServiceController::class, 'find']);
+                Route::post('', [CustomerServiceController::class, 'create']);
+                Route::post('{id}', [CustomerServiceController::class, 'update']);
+                Route::delete('{id}', [CustomerServiceController::class, 'delete']);
             });
         });
     });
