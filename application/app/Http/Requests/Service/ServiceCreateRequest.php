@@ -25,8 +25,7 @@ class ServiceCreateRequest extends ApiRequest
     {
         return [
             'name'        => ['required', 'max:255', 'string'],
-            'price'       => ['required', 'numeric', 'min:0', 'max:999999999'],
-            'unit'        => ['required', 'numeric', 'min:0', 'max:999999999'],
+            'unit'        => ['required', 'max:255', 'string'],
             'description' => ['nullable', 'string', 'min:0', 'max:65000'],
         ];
     }
