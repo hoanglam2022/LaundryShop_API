@@ -33,8 +33,8 @@ class CustomerServiceCreateRequest extends ApiRequest
     public function rules()
     {
         return [
-            'customer_id' => ['required', 'numeric', 'min:1', 'max:999999999', 'exists:mst_customer,customer_id'],
-            'service_id'  => ['required', 'numeric', 'min:1', 'max:999999999', 'exists:mst_service,service_id'],
+            'customer_id' => ['required', 'numeric', 'min:1', 'max:999999999', 'exists:mst_customer,id'],
+            'service_id'  => ['required', 'numeric', 'min:1', 'max:999999999', 'exists:mst_service,id'],
             'price'       => ['required', 'numeric', 'min:0', 'max:999999999'],
         ];
     }

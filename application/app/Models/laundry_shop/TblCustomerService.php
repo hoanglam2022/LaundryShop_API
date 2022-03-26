@@ -11,7 +11,7 @@ class TblCustomerService extends BaseModel
      *
      * @var string
      */
-    protected $table = 'mst_service';
+    protected $table = 'tbl_customer_service';
 
     /**
      * The attributes that are mass assignable.

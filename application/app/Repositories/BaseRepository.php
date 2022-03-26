@@ -103,6 +103,20 @@ abstract class BaseRepository implements BaseRepositoryInterface
     }
 
     /**
+     * Update or Create
+     * @param array $unique_columns
+     * @param array $data_columns
+     * @param array $data
+     * @return bool
+     */
+    public function updateOrCreate(array $unique_columns, array $data_columns, array $data)
+    {
+        $this->model->upsert($data, $unique_columns, $data_columns);
+
+        return true;
+    }
+
+    /**
      * Delete
      * @param int $id
      * @return mixed

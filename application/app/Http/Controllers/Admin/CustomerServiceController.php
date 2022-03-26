@@ -55,20 +55,7 @@ class CustomerServiceController extends BaseController
     public function create(CustomerServiceCreateRequest $request): JsonResponse
     {
         return (new BaseResource(CODE_SUCCESS,
-            $this->repository->create($request->all())
-        ))->response();
-    }
-
-    /**
-     * Update
-     * @param $id
-     * @param CustomerServiceUpdateRequest $request
-     * @return JsonResponse
-     */
-    public function update($id, CustomerServiceUpdateRequest $request): JsonResponse
-    {
-        return (new BaseResource(CODE_SUCCESS,
-            $this->repository->update($id, $request->all())
+            $this->repository->updateOrCreate(['customer_id', 'service_id'], ['price'], $request->all())
         ))->response();
     }
 

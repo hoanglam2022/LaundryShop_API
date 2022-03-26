@@ -40,6 +40,15 @@ interface BaseRepositoryInterface
     public function update(int $id, array $attributes = []);
 
     /**
+     * Update or create
+     * @param array $unique_columns
+     * @param array $data_columns
+     * @param array $data
+     * @return mixed
+     */
+    public function updateOrCreate(array $unique_columns,array $data_columns,array $data);
+
+    /**
      * Delete
      * @param int $id
      * @return mixed

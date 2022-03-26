@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Customer\AuthController as CustomerAuthController;
+use App\Http\Controllers\MasterData\MasterDataController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -39,6 +40,12 @@ Route::group([
     Route::group([
         'middleware' => ['auth:sanctum'],
     ], function () {
+        Route::group([
+            'prefix'     => 'master-data',
+        ], function () {
+            Route::get('customers', [MasterDataController::class, 'customers']);
+            Route::get('services', [MasterDataController::class, 'services']);
+        });
         Route::group([
             'middleware' => 'admin',
             'prefix'     => 'admin',
@@ -87,7 +94,6 @@ Route::group([
                 Route::get('', [CustomerServiceController::class, 'index']);
                 Route::get('{id}', [CustomerServiceController::class, 'find']);
                 Route::post('', [CustomerServiceController::class, 'create']);
-                Route::post('{id}', [CustomerServiceController::class, 'update']);
                 Route::delete('{id}', [CustomerServiceController::class, 'delete']);
             });
         });
